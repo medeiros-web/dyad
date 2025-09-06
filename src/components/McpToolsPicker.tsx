@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -37,12 +37,6 @@ export function McpToolsPicker() {
     })();
   }, []);
 
-  // Active count no longer applicable; show total available tools instead
-  const toolCount = useMemo(
-    () => Object.values(toolsByServer).flat().length,
-    [toolsByServer],
-  );
-
   // Removed activation toggling – consent governs execution time behavior
 
   return (
@@ -52,15 +46,12 @@ export function McpToolsPicker() {
           <TooltipTrigger asChild>
             <PopoverTrigger asChild>
               <Button
-                variant="ghost"
+                variant="outline"
                 className="has-[>svg]:px-2"
                 size="sm"
                 data-testid="mcp-tools-button"
               >
                 <Wrench className="size-4" />
-                {toolCount > 0 && (
-                  <span className="ml-1 text-xs">{toolCount}</span>
-                )}
               </Button>
             </PopoverTrigger>
           </TooltipTrigger>

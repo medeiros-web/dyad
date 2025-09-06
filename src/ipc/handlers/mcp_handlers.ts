@@ -1,4 +1,4 @@
-import { ipcMain, IpcMainInvokeEvent } from "electron";
+import { IpcMainInvokeEvent } from "electron";
 import log from "electron-log";
 import { db } from "../../db";
 import { mcpServers, mcpToolConsents } from "../../db/schema";
@@ -12,15 +12,6 @@ const logger = log.scope("mcp_handlers");
 const handle = createLoggedHandler(logger);
 
 type ConsentDecision = "accept-once" | "accept-always" | "decline";
-
-interface ToolConsentRequestPayload {
-  requestId: string;
-  serverId: number;
-  serverName: string;
-  toolName: string;
-  toolDescription?: string | null;
-  inputPreview?: string | null;
-}
 
 export function registerMcpHandlers() {
   // CRUD for MCP servers
@@ -130,11 +121,6 @@ export function registerMcpHandlers() {
       }
     },
   );
-
-  // Removed: upsert-tools (tools are fetched dynamically)
-
-  // Removed: set-tool-active (no activation; consent controls usage)
-
   // Consents
   handle("mcp:get-tool-consents", async () => {
     return await db.select().from(mcpToolConsents);

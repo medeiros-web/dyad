@@ -22,7 +22,8 @@ export const DyadMcpToolResult: React.FC<DyadMcpToolResultProps> = ({
     try {
       const parsed = JSON.parse(raw);
       return JSON.stringify(parsed, null, 2);
-    } catch (_e) {
+    } catch (e) {
+      console.error("Error parsing JSON for dyad-mcp-tool-result", e);
       return raw;
     }
   }, [expanded, raw]);
